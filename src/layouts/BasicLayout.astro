@@ -17,12 +17,12 @@ interface Props {
 
 const { title, description, page, slug, frontmatter } = Astro.props;
 const schema =
-  page !== "blogs"
+  page !== "blog"
     ? {
         "@context": "http://schema.org",
         "@type": "Person",
         name: "Anaswara",
-        url: "",
+        url: "https://anastr0.netlify.app/",
         sameAs: [],
         jobTitle: "Full Stack Web Developer",
         worksFor: {
@@ -44,14 +44,14 @@ const schema =
         "@type": "BlogPosting",
         mainEntityOfPage: {
           "@type": "WebPage",
-          "@id": `/blog/${slug}`,
+          "@id": `https://anastr0.netlify.app/blog/${slug}`,
         },
         headline: frontmatter?.title || title,
         description: frontmatter?.description || title,
         author: {
           "@type": "Person",
           name: "Anaswara",
-          url: "",
+          url: "https://anastr0.netlify.app/",
           sameAs: [],
         },
         publisher: {

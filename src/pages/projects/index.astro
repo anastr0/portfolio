@@ -39,7 +39,6 @@ const projects = (await getCollection("projects"))?.sort(
             title={project.data.title || "No title"}
             date={project.data.pubDate || new Date()}
             url={project.slug}
-            wip={project.inProgress}
           />
         ))
       }
