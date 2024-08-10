@@ -1,0 +1,52 @@
+---
+import { formatDate } from "../lib/helpers";
+import type { MarkdownLayoutProps } from "astro";
+import BasicLayout from "./BasicLayout.astro";
+import Button from "../components/Button.astro";
+
+type Props = MarkdownLayoutProps<{
+  title: string;
+  description: string;
+  pubDate: string;
+  minutesRead: string;
+  category: string;
+  tags: Array<string>;
+  tag: string;
+}>;
+
+const { slug } = Astro.params;
+const { frontmatter } = Astro.props;
+---
+
+<BasicLayout
+  frontmatter={frontmatter}
+  slug={slug}
+  page="blog"
+  title={`Anaswara T Rajan- ${frontmatter.title}`}
+  description={frontmatter.description}
+>
+  <main class="mx-auto max-w-3xl w-full h-screen p-8 text-neutral-100">
+    <a
+      href="/projects"
+      class="text-white bg-neutral-900 hover:bg-neutral-800 px-4 py-2 border-1 border-solid border-neutral-600 rounded-lg mb-8"
+      >Back</a
+    >
+    <div class="my-10">
+      <h1 class="text-5xl font-semibold">{frontmatter.title}</h1>
+      <div class="flex mt-5">
+        {
+          frontmatter.tags?.map((tag) => (
+            <div class="mr-2 text-xs rounded-full w-fit max-h-[50px] shadow-custom shadow-primary-500 active:shadow-none active:translate-x-[3px] active:translate-y-[3px] text-gray-200 px-5 py-2 border border-primary-100 hover:text-primary-500 transition-colors duration-100 ease-in-out bg-gray-900 cursor-pointer">{tag}</div>
+          ))
+        }
+      </div>
+      <div class="flex justify-between pt-4 text-gray-500 text-sm">
+        <p>{formatDate(new Date(frontmatter.pubDate))}</p>
+        <p>{frontmatter.minutesRead}</p>
+      </div>
+    </div>
+    <article class="prose prose-p:text-red-500 prose-slate prose-invert">
+      <slot />
+    </article>
+  </main>
+</BasicLayout>

@@ -1,0 +1,46 @@
+---
+import Card from "./Card/index.astro";
+import TimeZone from "./TimeZoneCard.astro";
+import { LINKS } from "../lib/constants";
+---
+
+<Card colSpan="md:col-span-1" rowSpan="md:row-span-5">
+  <div class="h-full">
+    <header class="flex items-center">
+    </header>
+    <address class="flex flex-col mt-4">
+      <h2 class="text-gray-500">Contact Details</h2>
+      <p>
+        <a
+          href="mailto:anaswaratrajan@gmail.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          >anaswaratrajan@gmail.com
+        </a>
+      </p>
+      <p><a href="tel:+91-9496604269">+91-9496604269</a></p>
+      <p>Bangalore, India</p>
+    </address>
+    <div class="flex flex-col mt-4 w-fit">
+      <h2 class="text-gray-500">Socials</h2>
+      <ul>
+        <li>
+          <a href={LINKS.linkedin} target="_blank">Linkedin</a>
+        </li>
+        <li>
+          <a href={LINKS.github} target="_blank">Github</a>
+        </li>
+        <li>
+          <a href="https://www.codingame.com/profile/3619b9b877a50e3006ae6e18560dd8439018172" target="_blank">Codingame</a>
+        </li>
+        <li>
+          <a href="https://x.com/anaswaratrajan" target="_blank">X</a>
+        </li>
+      </ul>
+    </div>
+    <div class="flex flex-col mt-4 w-fit">
+      <h2 class="text-gray-500">Time zone</h2>
+      <TimeZone />
+    </div>
+  </div>
+</Card>
