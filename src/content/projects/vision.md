@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/LayoutProjectPost.astro
 title: "Vision"
-description: ""
+description: "WIP : Im in progress"
 pubDate: 2020-01-29
 category: "website"
 tags: ["Nuxt3", "Tailwind"]
