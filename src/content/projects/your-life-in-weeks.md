@@ -2,8 +2,8 @@
 layout: ../../layouts/LayoutProjectPost.astro
 title: "Your life in Weeks"
 description: ""
-pubDate: 2020-01-29
-category: "website"
+pubDate: 2024-06-01
+category: "app"
 tags: ["Nuxt3", "Tailwind"]
 ---
 

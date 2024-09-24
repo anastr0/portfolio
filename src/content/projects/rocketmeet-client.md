@@ -2,8 +2,8 @@
 layout: ../../layouts/LayoutProjectPost.astro
 title: "RocketMeet client"
 description: ""
-pubDate: 2020-01-29
-category: "viz"
+pubDate: 2021-01-01
+category: "app"
 tags: ["Nextjs", "Typescript", "Redux", "Vercel", "Firebase"]
 ---
 
