@@ -1,5 +1,6 @@
 ---
 import Card from "./Card/index.astro";
+import { Icon } from 'astro-icon/components'
 import TimeZone from "./TimeZoneCard.astro";
 import { LINKS } from "../lib/constants";
 ---
@@ -15,11 +16,22 @@ import { LINKS } from "../lib/constants";
           href="mailto:anaswaratrajan@gmail.com"
           target="_blank"
           rel="noopener noreferrer"
-          >anaswaratrajan@gmail.com
+          >
+          <Icon name="ri:mail-send-line" class="h-6 inline" /> anaswaratrajan@gmail.com
         </a>
       </p>
-      <p><a href="tel:+91-9496604269">+91-9496604269</a></p>
-      <p>Bangalore, India</p>
+      <p>
+        <a href="tel:+91-9496604269">
+          <Icon name="ri:smartphone-line" class="h-6 inline" /> +91-9496604269
+        </a>
+      </p>
+      <p>
+        <a
+          href="https://maps.app.goo.gl/pKuLj1uCJ1NEvDdg7"
+          >
+          <Icon name="ri:map-pin-line" class="h-6 inline" /> Bangalore, India
+        </a>
+      </p>
     </address>
     <div class="flex flex-col mt-4 w-fit">
       <h2 class="text-gray-500">Socials</h2>
@@ -44,3 +56,9 @@ import { LINKS } from "../lib/constants";
     </div>
   </div>
 </Card>
+
+<style>
+    a:hover {
+    text-decoration: underline;
+  }
+</style>
