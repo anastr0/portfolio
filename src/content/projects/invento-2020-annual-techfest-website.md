@@ -7,9 +7,7 @@ category: "website"
 tags: ["Django", "JavaScript", "HTML"]
 ---
 
-• Worked as Backend Django Developer for the college techfest website
+• Worked on the college tech-fest website in Django.  
 
 • [Github](https://github.com/hemangsrr/invento20)
 
-
-tags: ["Express", "React", "Firebase"]

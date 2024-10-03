@@ -9,13 +9,9 @@ tags: ["Django Rest Framework", "Nuxt", "Postgresql", "Pandas"]
 
 Intern Project at CompileInc: 
 
-• Co-developed NDC-HCPCS search tool, an industry-leading product in Commercial healthcare made with Django Rest Framework and Nuxtjs that queries and returns csv exportable search results of drug data.
+- Developed an NDC-HCPCS lookup tool using Django Rest Framework and Nuxt.js, allowed users to quickly search and export drug data. Implemented accessible UI with intuitive search functionality using Nuxt. Created and memory optimized ETL pipeline using Python, that fed lookup data from updated source into a PostgreSQL database daily.
 
-• Created ETL pipelines that updates a postgres database daily with cronjobs from source datasets and optimised through memory profiling.
+- Utilized Scrapy to extract SEO relevant long tail keywords from healthcare websites, generated keyword reports for market context data analysis/ SEO strategies.
 
-• Implemented various software features and interactive UI components in accordance with design specifications in NDC-HCPCs search tool client.
-
-• Extracted SEO relevant long tail keywords from Commercial healthcare company websites with scrapy spiders, generated keyword reports for data analysis.
-
-• Integrated an automated page generation tool with Django to CompileInc blog.
+- Integrated an automated page generation tool with Django to CompileInc blog.
 

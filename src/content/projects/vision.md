@@ -1,6 +1,6 @@
 ---
 layout: ../../layouts/LayoutProjectPost.astro
-title: "Vision"
+title: "[WIP] Vision"
 description: "WIP : Im in progress"
 pubDate: 2077-01-01
 category: "App"
