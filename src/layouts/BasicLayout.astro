@@ -87,6 +87,15 @@ const schema =
     <meta name="twitter:description" content={description} />
 
     <link rel="preconnect" href="https://cdn.fontshare.com" />
+    <script type="importmap">
+			{
+				"imports": {
+					"three": "../build/three.module.js",
+					"three/addons/": "./jsm/"
+				}
+			}
+		</script>
+
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
   </head>
   <body

@@ -1,1 +1,60 @@
+---
+import Layout from "../../layouts/Layout.astro";
 
+const experiments = [
+    {
+      title: 'Cube',
+      url: '/playground/cube',
+    },
+    {
+      title: 'Orbit Cube',
+      url: '/playground/orbit-cube',
+    },
+    {
+      title: 'Light',
+      url: '/playground/light',
+    }
+  ]
+---
+
+<script>
+  import { timeline, type TimelineDefinition } from "motion";
+  import { loaderAnimation } from "../../lib/constants";
+
+  const sequence = [loaderAnimation];
+
+  timeline(sequence as TimelineDefinition);
+</script>
+
+<Layout
+  title="Playground"
+  description="A bunch of experiments"
+>
+  <main
+    class="w-screen h-screen flex flex-col justify-start items-start max-w-3xl mx-auto p-8"
+  >
+    <a
+      href="/"
+      class="text-white bg-neutral-900 hover:bg-neutral-800 px-4 py-2 mb-8 border-1 border-solid border-neutral-600 rounded-lg"
+      >Back</a
+    >
+    <h1 class="text-4xl font-bold mb-4 text-neutral-100">Playground</h1>
+    <h3 class="text-xl mb-4 text-neutral-200">A bunch of experiments in three.js</h3>
+    <ul class="w-full">
+      {
+        experiments?.map((experiment) => (
+          <li class="w-full text-neutral-100 hover:text-neutral-400 ease-in-out transition-colors border-b-neutral-400 border-dashed border-b-1 my-2">
+            <a
+              class="text-sm md:text-base decoration-none flex justify-between"
+              href={experiment.url}
+            >
+              <p class="inline-block whitespace-nowrap">
+                {experiment.title}
+              </p>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </main>
+</Layout>
