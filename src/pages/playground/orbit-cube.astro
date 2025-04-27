@@ -1,22 +1,20 @@
-<!-- import { timeline } from "motion"; -->
-
 <div id="three-container"></div>
 
 <script type="module">
     import * as THREE from "https://cdn.jsdelivr.net/npm/three@v0.149.0/build/three.module.js"
     import { animate, frame } from "https://cdn.jsdelivr.net/npm/motion@latest/+esm"
+    // import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@v0.149.0/examples/jsm/controls/OrbitControls.js"
+    import { OrbitControls } from 'OrbitControls';
 
     var scene = new THREE.Scene({ alpha: true })
     const main = document.getElementById("three-container")
-    var camera = new THREE.PerspectiveCamera(
-        25,
-        main.offsetWidth / main.offsetHeight,
-        0.1,
-        1000
-    )
+    const camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 10000 );
+
     var renderer = new THREE.WebGLRenderer({ antialias: true })
     renderer.setSize(main.offsetWidth, main.offsetHeight)
     main.appendChild(renderer.domElement)
+
+    const controls = new OrbitControls( camera, renderer.domElement );
 
     var geometry = new THREE.BoxGeometry()
     var material = new THREE.MeshPhongMaterial({ color: 0xff0000, shininess: 100 })
@@ -29,7 +27,10 @@
     scene.add(directionalLight)
     scene.add(cube)
 
-    camera.position.z = 5
+    // camera.position.z = 5
+
+    camera.position.set( 0, 20, 100 );
+    controls.update();
 
     function rad(degrees) {
         return degrees * (Math.PI / 180)
@@ -55,6 +56,7 @@
         background: #000;
     }
     #three-container {
+        background: #000;
         width: 300px;
         height: 200px;
     }

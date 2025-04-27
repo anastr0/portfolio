@@ -12,13 +12,13 @@ import svelte from "@astrojs/svelte";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://anastr0.netlify.app/",
+  site: "https://anastr0.com/",
   integrations: [
     sitemap(),
     robotsTxt({
       sitemap: [
-        "https://anastr0.netlify.app/sitemap-index.xml",
-        "https://anastr0.netlify.app/sitemap-0.xml",
+        "https://anastr0.com/sitemap-index.xml",
+        "https://anastr0.com/sitemap-0.xml",
       ],
     }),
     solidJs(),
