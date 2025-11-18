@@ -35,11 +35,12 @@ import Now from "../components/Now.astro";
   description="An SDE padawan looking to work and collaborate on innovative products and solutions"
 >
   <main
-    class="text-white m-auto p-2 grid gap-2 max-w-6xl overflow-hidden relative w-full sm:p-4 sm:gap-2 md:grid-cols-2 md:gap-3 md:p-6 lg:h-screen lg:grid-rows-8 lg:grid-cols-4 lg:gap-4 lg:max-h-[800px]"
+    class="text-white max-w-6xl overflow-auto relative w-full sm:p-3 md:p-2 lg:max-h-[800px] scrollbar-hide"
   >
-    <Card colSpan="md:col-span-2" rowSpan="md:row-span-6">
+    <div class="md:flex m-auto p-2 gap-2">
+      <Card colSpan="md:col-span-2" rowSpan="md:row-span-6" width="md:w-4/6">
         <div class="flex w-full h-full">
-            <div class="flex flex-col justify-between md:max-h-[300px] gap-4">
+            <div class="flex flex-col justify-between gap-4">
                 <h1 class="text-4xl font-bold mb-4 text-neutral-100">My Journey</h1>
                 I started coding when I was in school by <a class="text-pink-500 contents" href="https://help.tumblr.com/knowledge-base/customizing-your-theme/#edit-custom-html">tinkering with my Tumblr blog themes</a>, then later started building standalone websites with PHP. Then in HSS, I started competing in clashofcode contests in the platform codingame.com and got unknowingly good at Python, DSA and programming concepts. Then I started in competing in annual flagship contests and got good at automation with python. 
 
@@ -70,10 +71,22 @@ import Now from "../components/Now.astro";
             <div>
               Now, I'm taking a career break to transition into a Full Stack AI role. Applying to Meshdefend, as I can contribute as a platform & backend engineer and hope to gain hands on knowledge in large scale data engineering and agentic AI. 
             </div>
+
+            <div>
+              Now, I'm taking a career break to transition into a Full Stack AI role. Applying to Meshdefend, as I can contribute as a platform & backend engineer and hope to gain hands on knowledge in large scale data engineering and agentic AI. 
+            </div>
+
+            <div>
+              Now, I'm taking a career break to transition into a Full Stack AI role. Applying to Meshdefend, as I can contribute as a platform & backend engineer and hope to gain hands on knowledge in large scale data engineering and agentic AI. 
+            </div>
+
+            <div>
+              Now, I'm taking a career break to transition into a Full Stack AI role. Applying to Meshdefend, as I can contribute as a platform & backend engineer and hope to gain hands on knowledge in large scale data engineering and agentic AI. 
+            </div>
             </div>
         </div>
     </Card>
-    <Card colSpan="md:col-span-2" rowSpan="md:row-span-6" title="About me">
+    <Card colSpan="md:col-span-2" rowSpan="md:row-span-6" title="About me" width="md:w-2/6">
         <!-- <div class="flex flex-col gap-2">
             <div class="text-sm font-light">
             2015 - Discovered my passion for coding through customizing Tumblr themes using HTML and CSS.<br>
@@ -113,6 +126,7 @@ import Now from "../components/Now.astro";
     </div>
   </div>
     </Card>
+    </div>
   </main>
 </Layout>
 
