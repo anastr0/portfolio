@@ -1,29 +1,23 @@
-<!-- import { timeline } from "motion"; -->
-
 <div id="three-container"></div>
 
 <script type="module">
-    import * as THREE from "https://cdn.jsdelivr.net/npm/three@v0.149.0/build/three.module.js"
+    import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.module.js";
+    import { GUI } from "https://cdn.jsdelivr.net/npm/three@0.149.0/examples/jsm/libs/lil-gui.module.min.js";
+    // import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@0.149.0/examples/jsm/controls/OrbitControls.js";
 
-    // import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-    // import Stats from 'three/addons/libs/stats.module.js';
-    import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
-
-    const main = document.getElementById("three-container")
-    // var stats = new Stats();
-    // container.appendChild( stats.dom );
+    const main = document.getElementById("three-container");
 
     const bulbLuminousPowers = {
-				'110000 lm (1000W)': 110000,
-				'3500 lm (300W)': 3500,
-				'1700 lm (100W)': 1700,
-				'800 lm (60W)': 800,
-				'400 lm (40W)': 400,
-				'180 lm (25W)': 180,
-				'20 lm (4W)': 20,
-				'Off': 0
+        '110000 lm (1000W)': 110000,
+        '3500 lm (300W)': 3500,
+        '1700 lm (100W)': 1700,
+        '800 lm (60W)': 800,
+        '400 lm (40W)': 400,
+        '180 lm (25W)': 180,
+        '20 lm (4W)': 20,
+        'Off': 0
     };
-        // ref for solar irradiances: https://en.wikipedia.org/wiki/Lux
+
     const hemiLuminousIrradiances = {
         '0.0001 lx (Moonless Night)': 0.0001,
         '0.002 lx (Night Airglow)': 0.002,
@@ -37,83 +31,115 @@
         '18000 lx (Daylight)': 18000,
         '50000 lx (Direct Sun)': 50000
     };
+
     const params = {
         shadows: true,
         exposure: 0.68,
-        bulbPower: Object.keys( bulbLuminousPowers )[ 4 ],
-        hemiIrradiance: Object.keys( hemiLuminousIrradiances )[ 0 ]
+        bulbPower: Object.keys(bulbLuminousPowers)[1],
+        hemiIrradiance: Object.keys(hemiLuminousIrradiances)[7]
     };
 
-    var camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 0.1, 100 );
-    camera.position.x = - 4;
-    camera.position.z = 4;
-    camera.position.y = 2;
-    
-    var scene = new THREE.Scene({ alpha: true })
+    // Scene + camera
+    const scene = new THREE.Scene();
+    // use viewport size for camera initially
+    const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
+    camera.position.set(-4, 2, 4);
+    camera.lookAt(0, 1, 0);
 
-    // var camera = new THREE.PerspectiveCamera(
-    //     25,
-    //     main.offsetWidth / main.offsetHeight,
-    //     0.1,
-    //     1000
-    // )
-
-    const bulbGeometry = new THREE.SphereGeometry( 0.02, 16, 8 );
-    var bulbLight = new THREE.PointLight( 0xffee88, 1, 100, 2 );
-
-    var bulbMat = new THREE.MeshStandardMaterial( {
-        emissive: 0xffffee,
-        emissiveIntensity: 1,
-        color: 0x000000
-    } );
-    bulbLight.add( new THREE.Mesh( bulbGeometry, bulbMat ) );
-    bulbLight.position.set( 0, 2, 0 );
-    bulbLight.castShadow = true;
-
-
-    scene.add( bulbLight );
-    var hemiLight = new THREE.HemisphereLight( 0xddeeff, 0x0f0e0d, 0.02 );
-    scene.add( hemiLight );
-
-    // var renderer = new THREE.WebGLRenderer({ antialias: true })
-    // renderer.setSize(main.offsetWidth, main.offsetHeight)
-    
-
-    var renderer = new THREE.WebGLRenderer();
-    renderer.setPixelRatio( window.devicePixelRatio );
-    renderer.setSize( window.innerWidth, window.innerHeight );
+    // Renderer
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setPixelRatio(window.devicePixelRatio || 1);
+    // size to viewport
+    renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.shadowMap.enabled = true;
     renderer.toneMapping = THREE.ReinhardToneMapping;
-    main.appendChild(renderer.domElement)
+    renderer.toneMappingExposure = params.exposure;
+    main.appendChild(renderer.domElement);
 
-    // const controls = new OrbitControls( camera, renderer.domElement );
-    // controls.minDistance = 1;
-    // controls.maxDistance = 20;
+    // Ground + sample mesh so shadows are visible
+    const groundMat = new THREE.MeshStandardMaterial({ color: 0x808080, metalness: 0.2, roughness: 0.8 });
+    const ground = new THREE.Mesh(new THREE.PlaneGeometry(10, 10), groundMat);
+    ground.rotation.x = -Math.PI / 2;
+    ground.position.y = 0;
+    ground.receiveShadow = true;
+    scene.add(ground);
+
+    const boxMat = new THREE.MeshStandardMaterial({ color: 0x44aa88 });
+    const box = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), boxMat);
+    box.position.set(0, 0.5, 0);
+    box.castShadow = true;
+    scene.add(box);
+
+    // Point light with small visible bulb
+    const bulbGeometry = new THREE.SphereGeometry(0.06, 16, 8);
+    const bulbMat = new THREE.MeshStandardMaterial({ emissive: 0xffee88, emissiveIntensity: 1, color: 0x000000 });
+
+    const bulbLight = new THREE.PointLight(0xffee88, 1, 10, 2);
+    bulbLight.position.set(2, 4, 0);
+    bulbLight.castShadow = true;
+    bulbLight.shadow.mapSize.set(1024, 1024);
+    bulbLight.shadow.bias = -0.0005;
+    bulbLight.add(new THREE.Mesh(bulbGeometry, bulbMat));
+    scene.add(bulbLight);
+
+    // Hemisphere light
+    const hemi = new THREE.HemisphereLight(0xddeeff, 0x0f0e0d, 0.02);
+    scene.add(hemi);
+
+    // Helpers (optional)
+    // const plHelper = new THREE.PointLightHelper(bulbLight, 0.2);
+    // scene.add(plHelper);
+    // const hemiHelper = new THREE.HemisphereLightHelper(hemi, 0.5);
+    // scene.add(hemiHelper);
+
+    // GUI
     const gui = new GUI();
-
-    gui.add( params, 'hemiIrradiance', Object.keys( hemiLuminousIrradiances ) );
-    gui.add( params, 'bulbPower', Object.keys( bulbLuminousPowers ) );
-    gui.add( params, 'exposure', 0, 1 );
-    gui.add( params, 'shadows' );
+    gui.add(params, 'hemiIrradiance', Object.keys(hemiLuminousIrradiances));
+    gui.add(params, 'bulbPower', Object.keys(bulbLuminousPowers));
+    gui.add(params, 'exposure', 0, 2);
+    gui.add(params, 'shadows');
     gui.open();
 
-    /**
-     * Create Three.js render loop using Motion's frameloop
-     */
-    frame.render(() => renderer.render(scene, camera), true)
+    // Animation loop
+    function animate() {
+        requestAnimationFrame(animate);
 
-    /**
-     * Animate cube rotation
-     */
+        // apply GUI params
+        renderer.toneMappingExposure = params.exposure;
+        renderer.shadowMap.enabled = !!params.shadows;
 
+        const bulbVal = bulbLuminousPowers[params.bulbPower] || 0;
+        const hemiVal = hemiLuminousIrradiances[params.hemiIrradiance] || 0;
+
+        bulbLight.intensity = bulbVal / 1000;
+        hemi.intensity = hemiVal / 1000;
+
+        renderer.render(scene, camera);
+    }
+    animate();
+
+    // Resize to viewport (fill viewport)
+    function onResize() {
+        const w = window.innerWidth;
+        const h = window.innerHeight;
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+        renderer.setSize(w, h);
+    }
+    window.addEventListener('resize', onResize);
+    window.addEventListener('orientationchange', onResize);
+    // ensure initial correct sizing
+    onResize();
 </script>
 
 <style>
-    body {
-        background: #000;
-    }
+    body { background: #000; margin: 0; height: 100vh; }
+    /* fill the viewport */
     #three-container {
-        width: 300px;
-        height: 200px;
+        position: fixed;
+        inset: 0;
+        width: 100vw;
+        height: 100vh;
+        display: block;
     }
 </style>
