@@ -1,0 +1,75 @@
+<!-- import { timeline } from "motion"; -->
+
+<div id="three-container"></div>
+
+<script type="module">
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import * as THREE from 'three';
+
+// If your file is in src/assets, import it so the bundler resolves the URL.
+// Adjust the relative path to where scene.gltf actually lives.
+// If the model is in public/models, use an absolute path:
+const modelUrl = '/models/scene.gltf';
+
+// minimal scene setup (expand as needed)
+const scene = new THREE.Scene();
+
+const loader = new GLTFLoader();
+loader.load(
+    modelUrl,
+    (gltf) => {
+    scene.add(gltf.scene);
+    },
+    undefined,
+    (err) => {
+    console.error('GLTF load error', err);
+    }
+);
+
+// --- FIX: select the container correctly and create renderer properly ---
+const container = this.$el.querySelector('.three-container'); // was getElementById -> null
+const renderer = new THREE.WebGLRenderer({ antialias: true }); // don't pass null
+renderer.setPixelRatio(window.devicePixelRatio || 1);
+
+const width = container.clientWidth || window.innerWidth;
+const height = container.clientHeight || window.innerHeight;
+renderer.setSize(width, height);
+container.appendChild(renderer.domElement);
+
+const camera = new THREE.PerspectiveCamera(70, width / height, 0.1, 1000);
+camera.position.set(0, 1.5, 3);
+camera.lookAt(0, 0, 0);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+
+// Optional settings
+controls.enableDamping = true;  // Adds smooth motion
+controls.dampingFactor = 0.05; // How much inertia the camera has
+controls.enableZoom = true;    // Allow zooming (default: true)
+controls.enablePan = true; 
+
+const animate = () => {
+    requestAnimationFrame(animate);
+    renderer.render(scene, camera);
+};
+animate();
+
+window.addEventListener('resize', () => {
+    const w = container.clientWidth || window.innerWidth;
+    const h = container.clientHeight || window.innerHeight;
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+    renderer.setSize(w, h);
+});
+</script>
+
+<style>
+#three-container {
+  width: 100vw;
+  height: 100vh;
+}
+body {
+  background: black;
+}
+</style>
